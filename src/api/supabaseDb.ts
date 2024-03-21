@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabase';
-import { Event, Fighter, Organization } from '../interfaces/';
+import { Event, Fight, Fighter, FightersInFight, Organization } from '../interfaces/';
 
 // Events
 export async function getAllEvents(): Promise<Event[] | null> {
@@ -17,6 +17,21 @@ export async function getAllEvents(): Promise<Event[] | null> {
 export async function getEventById(eventId: number[]): Promise<Event[]> {
   try {
     const { data: event, error } = await supabase.from('Events').select('*').in('event_id', eventId);
+
+    if (error) {
+      throw error;
+    }
+
+    return event || [];
+  } catch (error) {
+    throw error;
+  }
+}
+
+//Fights
+export async function getFightsByEventId(eventId: number[]): Promise<Fight[]> {
+  try {
+    const { data: event, error } = await supabase.from('Fights').select('*').in('event_id', eventId);
 
     if (error) {
       throw error;
@@ -50,6 +65,21 @@ export async function getFighterById(fighterId: number[]): Promise<Fighter[]> {
     }
 
     return fighter || [];
+  } catch (error) {
+    throw error;
+  }
+}
+
+// FightersInFight
+export async function getFightersInFightByFightId(fightId: number[]): Promise<FightersInFight[]> {
+  try {
+    const { data: fightersInFight, error } = await supabase.from('FightersInFight').select('*').in('fight_id', fightId);
+
+    if (error) {
+      throw error;
+    }
+
+    return fightersInFight || [];
   } catch (error) {
     throw error;
   }
