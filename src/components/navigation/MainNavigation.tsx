@@ -1,7 +1,21 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import SignOut from '../auth/SignOut';
+import { useAuth } from '@/hooks/useAuth';
+import { signOut } from '@/api/auth/supabaseAuth';
 
 const MainNavigation = () => {
+  const { session } = useAuth();
+  const navigate = useNavigate();
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      console.log('Signed out successfully');
+      navigate('/sign-in');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
   return (
     <nav className="flex items-center h-14 px-4 border-b border-gray-200 w-full md:border-0 md:px-6 lg:gap-0 justify-center">
       <ul className="flex items-center space-x-4 lg:flex-grow lg:justify-center">
@@ -25,19 +39,19 @@ const MainNavigation = () => {
             Organizations
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/sign-in" end className="text-sm font-medium text-gray-700 hover:text-gray-900">
-            Sign in
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/sign-up" end className="text-sm font-medium text-gray-700 hover:text-gray-900">
-            Sign up
-          </NavLink>
-        </li>
-        <li>
-          <SignOut />
-        </li>
+        {session ? (
+          <li>
+            <button className="text-sm font-medium text-green-600 hover:text-green-800" onClick={handleSignOut}>
+              Sign out
+            </button>
+          </li>
+        ) : (
+          <li>
+            <NavLink to="/sign-in" end className="text-sm font-medium text-gray-700 hover:text-gray-900">
+              Sign in
+            </NavLink>
+          </li>
+        )}
       </ul>
     </nav>
   );

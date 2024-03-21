@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ZodError, z } from 'zod';
 import { signUp } from '../../api/auth/supabaseAuth'; // Importing the signUp function from supabaseAuth
+import { NavLink } from 'react-router-dom';
 
 const signupSchema = z.object({
   email: z.string().email('Invalid email address.'),
@@ -76,6 +77,9 @@ const SignUp = () => {
           {isSubmitting ? 'Submitting...' : 'Sign Up'}
         </button>
       </form>
+      <NavLink to="/sign-in" end className="">
+        Back to Sign In
+      </NavLink>
     </div>
   );
 };
