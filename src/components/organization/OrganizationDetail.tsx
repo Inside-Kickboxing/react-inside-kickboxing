@@ -25,7 +25,9 @@ const OrganizationDetail = () => {
 
   return (
     <div>
+      <img src={organization.photo_url ?? ''} alt={organization.organization_name} width={300} />
       <h2>{organization.organization_name}</h2>
+      <p>{organization.organization_description}</p>
     </div>
   );
 };

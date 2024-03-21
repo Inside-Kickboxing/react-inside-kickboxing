@@ -48,7 +48,7 @@ const EventList = () => {
             const org = organization.find((org) => org.organization_id === event.organization_id);
             return (
               <li key={event.event_id} onClick={() => navigate(`${event.event_id}`)}>
-                <div>{org ? org.organization_name : ''} presents</div>
+                <img src={event.photo_url ?? ''} alt={event.event_name} width={300} />
                 <div>{event.event_name}</div>
                 {event.event_date && <div>{formatDateTime(event.event_date)}</div>}
               </li>

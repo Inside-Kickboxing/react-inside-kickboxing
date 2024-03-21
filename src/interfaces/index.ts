@@ -18,7 +18,7 @@ export interface Event {
   event_date: string | null;
   event_id: number;
   event_location: string | null;
-  event_name: string | null;
+  event_name: string;
   is_locked: boolean;
   organization_id: number;
   photo_url: string | null;

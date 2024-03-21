@@ -45,6 +45,7 @@ const EventDetail = () => {
 
   return (
     <div>
+      <img src={event.photo_url ?? ''} alt={event.event_name} width={300} />
       <h2>{event.event_name}</h2>
       <ul>
         {fights.map((fight) => (
