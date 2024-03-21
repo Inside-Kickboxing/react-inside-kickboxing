@@ -1,3 +1,6 @@
+1. npm i
+2. npm run dev
+
 **Inside Kickboxing**
 
 Inside Kickboxing is a web application designed to be a pick-em game for kickboxing. It also provides users with a little information about upcoming events, fighters, and organizations within the sport of kickboxing.
