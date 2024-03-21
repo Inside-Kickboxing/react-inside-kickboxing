@@ -24,7 +24,7 @@ const FighterDetail = () => {
   }
 
   return (
-    <div>
+    <div className="flex justify-center text-xl">
       <h2>{fighter.fighter_name}</h2>
     </div>
   );

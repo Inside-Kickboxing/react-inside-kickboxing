@@ -25,9 +25,11 @@ const OrganizationDetail = () => {
 
   return (
     <div>
-      <img src={organization.photo_url ?? ''} alt={organization.organization_name} width={300} />
-      <h2>{organization.organization_name}</h2>
-      <p>{organization.organization_description}</p>
+      <div className="flex justify-center">
+        <img src={organization.photo_url ?? ''} alt={organization.organization_name} width={300} />
+      </div>
+      <h2 className="flex justify-center text-xl">{organization.organization_name}</h2>
+      <p className="flex justify-center">{organization.organization_description}</p>
     </div>
   );
 };

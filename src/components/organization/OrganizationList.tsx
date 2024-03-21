@@ -23,13 +23,13 @@ const OrganizationList = () => {
   }
   return (
     <div>
-      <h2>Organizations</h2>
+      <h2 className="flex justify-center text-xl">Organizations</h2>
       <ul>
         {organizations &&
           organizations.map((organization) => (
             <li key={organization.organization_id} onClick={() => navigate(`${organization.organization_id}`)}>
               <img src={organization.photo_url ?? ''} alt={organization.organization_name} width={150} />
-              <div>{organization.organization_name}</div>
+              <div className="flex justify-center">{organization.organization_name}</div>
             </li>
           ))}
       </ul>
