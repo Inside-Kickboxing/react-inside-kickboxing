@@ -28,8 +28,7 @@ const OrganizationList = () => {
         {organizations &&
           organizations.map((organization) => (
             <li key={organization.organization_id} onClick={() => navigate(`${organization.organization_id}`)}>
-              <img src={organization.photo_url ?? ''} alt={organization.organization_name} width={150} />
-              <div className="flex justify-center">{organization.organization_name}</div>
+              <h3 className="flex justify-center">{organization.organization_name}</h3>
             </li>
           ))}
       </ul>

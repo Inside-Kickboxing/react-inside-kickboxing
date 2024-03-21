@@ -45,8 +45,8 @@ const EventDetail = () => {
 
   return (
     <div>
-      <img src={event.photo_url ?? ''} alt={event.event_name} width={300} />
       <h2 className="flex justify-center text-xl">{event.event_name}</h2>
+      <img src={event.photo_url ?? ''} alt={event.event_name} width={300} />
       <div className="flex justify-center">
         <ul>
           {fights.map((fight) => (
