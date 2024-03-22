@@ -51,6 +51,7 @@ const EventList = () => {
                 <img src={event.photo_url ?? ''} alt={event.event_name} width={300} />
                 <div>{event.event_name}</div>
                 {event.event_date && <div>{formatDateTime(event.event_date)}</div>}
+                <span>{event.event_location}</span>
               </li>
             );
           })}
