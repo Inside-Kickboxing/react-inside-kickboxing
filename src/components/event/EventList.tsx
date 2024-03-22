@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getAllEvents, getOrganizationById } from '../../api/supabaseDb';
-import { formatDateTime } from '../../utils/dateUtils'; // Import the formatDateTime function
+import { formatDateTime } from '../../utils/dateFormatter'; // Import the formatDateTime function
 import { useNavigate } from 'react-router-dom';
 
 const EventList = () => {
@@ -51,6 +51,7 @@ const EventList = () => {
                 <img src={event.photo_url ?? ''} alt={event.event_name} width={300} />
                 <div>{event.event_name}</div>
                 {event.event_date && <div>{formatDateTime(event.event_date)}</div>}
+                <span>{event.event_location}</span>
               </li>
             );
           })}

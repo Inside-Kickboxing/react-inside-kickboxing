@@ -1,119 +1,64 @@
 import { supabase } from '../lib/supabase';
-import { Event, Fight, Fighter, FightersInFight, Organization } from '../interfaces/';
+import { Event, Fight, Fighter, /*FightHistory, */ Organization } from '../interfaces/';
+import { handleError } from '@/utils/errorHandler';
 
-// Events
-export async function getAllEvents(): Promise<Event[] | null> {
+// Wrapper function for Supabase queries with error handling
+async function querySupabase(query: any) {
   try {
-    const { data: events, error } = await supabase.from('Events').select('*');
+    const { data, error } = await query;
     if (error) {
       throw error;
     }
-    return events;
+    return data;
   } catch (error) {
-    throw error;
+    handleError(error);
   }
 }
 
+// Events
+export async function getAllEvents(): Promise<Event[] | null> {
+  const query = supabase.from('Events').select('*');
+  return querySupabase(query);
+}
+
 export async function getEventById(eventId: number[]): Promise<Event[]> {
-  try {
-    const { data: event, error } = await supabase.from('Events').select('*').in('event_id', eventId);
-
-    if (error) {
-      throw error;
-    }
-
-    return event || [];
-  } catch (error) {
-    throw error;
-  }
+  const query = supabase.from('Events').select('*').in('event_id', eventId);
+  return querySupabase(query) || [];
 }
 
 //Fights
 export async function getFightsByEventId(eventId: number[]): Promise<Fight[]> {
-  try {
-    const { data: event, error } = await supabase.from('Fights').select('*').in('event_id', eventId);
-
-    if (error) {
-      throw error;
-    }
-
-    return event || [];
-  } catch (error) {
-    throw error;
-  }
+  const query = supabase.from('Fights').select('*').in('event_id', eventId);
+  return querySupabase(query) || [];
+}
+export async function getFightById(fightId: number): Promise<Fight[]> {
+  const query = supabase.from('Fights').select('*').in('fight_id', [fightId]);
+  return querySupabase(query) || [];
 }
 
 // Fighters
 export async function getAllFighters(): Promise<Fighter[] | null> {
-  try {
-    const { data: events, error } = await supabase.from('Fighters').select('*');
-    if (error) {
-      throw error;
-    }
-    return events;
-  } catch (error) {
-    throw error;
-  }
+  const query = supabase.from('Fighters').select('*');
+  return querySupabase(query);
 }
 
 export async function getFighterById(fighterId: number[]): Promise<Fighter[]> {
-  try {
-    const { data: fighter, error } = await supabase.from('Fighters').select('*').in('fighter_id', fighterId);
-
-    if (error) {
-      throw error;
-    }
-
-    return fighter || [];
-  } catch (error) {
-    throw error;
-  }
+  const query = supabase.from('Fighters').select('*').in('fighter_id', fighterId);
+  return querySupabase(query) || [];
 }
 
-// FightersInFight
-export async function getFightersInFightByFightId(fightId: number[]): Promise<FightersInFight[]> {
-  try {
-    const { data: fightersInFight, error } = await supabase.from('FightersInFight').select('*').in('fight_id', fightId);
-
-    if (error) {
-      throw error;
-    }
-
-    return fightersInFight || [];
-  } catch (error) {
-    throw error;
-  }
+export async function getFightersByFightId(fightIds: number[]): Promise<Fighter[][]> {
+  const query = supabase.from('Fighters').select('*').in('fight_id', fightIds);
+  return querySupabase(query) || [];
 }
 
 // Organizations
-
 export async function getAllOrganizations(): Promise<Organization[] | null> {
-  try {
-    const { data: events, error } = await supabase.from('Organizations').select('*');
-    if (error) {
-      throw error;
-    }
-    return events;
-  } catch (error) {
-    throw error;
-  }
+  const query = supabase.from('Organizations').select('*');
+  return querySupabase(query);
 }
 
 export async function getOrganizationById(organizationId: number[]): Promise<Organization[]> {
-  try {
-    const { data: organization, error } = await supabase
-      .from('Organizations')
-      .select('*')
-      .in('organization_id', organizationId);
-
-    if (error) {
-      throw error;
-    }
-
-    return organization || [];
-  } catch (error) {
-    throw error;
-  }
+  const query = supabase.from('Organizations').select('*').in('organization_id', organizationId);
+  return querySupabase(query) || [];
 }
-
-// You can create more functions for fetching specific events or other data as needed
