@@ -1,4 +1,3 @@
-import React from 'react';
 import { getAllOrganizations } from '../../api/supabaseDb';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';

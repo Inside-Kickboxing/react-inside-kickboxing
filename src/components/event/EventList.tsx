@@ -45,7 +45,7 @@ const EventList = () => {
       <ul>
         {events &&
           events.map((event) => {
-            const org = organization.find((org) => org.organization_id === event.organization_id);
+            // const org = organization.find((org) => org.organization_id === event.organization_id);
             return (
               <li key={event.event_id} onClick={() => navigate(`${event.event_id}`)}>
                 <img src={event.photo_url ?? ''} alt={event.event_name} width={300} />

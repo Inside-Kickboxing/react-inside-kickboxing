@@ -1,9 +1,9 @@
 import { getFighterById } from '../../api/supabaseDb';
-import { useNavigate, useParams } from 'react-router-dom';
+import { /*useNavigate,*/ useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 const FighterDetail = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { id } = useParams<{ id: string | undefined }>();
   console.log('Fighter ID:', id);
 
