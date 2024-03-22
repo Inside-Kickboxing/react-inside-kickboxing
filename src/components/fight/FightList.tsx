@@ -1,6 +1,6 @@
 import React from 'react';
 import { Fight, Fighter } from '@/interfaces';
-import FightDetail from './FightDetail';
+import FightDetails from './FightDetail';
 
 interface Props {
   fights: Fight[];
@@ -13,7 +13,7 @@ const FightList: React.FC<Props> = ({ fights, fighters }) => {
       <ul>
         {fights.map((fight) => (
           <li key={fight.fight_id}>
-            <FightDetail fight={fight} fighters={fighters} />
+            <FightDetails fight={fight} fighters={fighters} />
           </li>
         ))}
       </ul>

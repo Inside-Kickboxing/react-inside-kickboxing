@@ -1,3 +1,4 @@
+// FightDetails.tsx
 import React from 'react';
 import { Fight, Fighter } from '@/interfaces';
 

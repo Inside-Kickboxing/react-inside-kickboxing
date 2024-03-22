@@ -32,7 +32,7 @@ const EventDetail = () => {
     <div>
       <h2 className="flex justify-center text-xl">{event.event_name}</h2>
       <img src={event.photo_url ?? ''} alt={event.event_name} width={300} />
-      <FightList fights={fights} fighters={fighters.flat()} />
+      <FightList fights={fights} fighters={fighters} />
     </div>
   );
 };
@@ -41,6 +41,7 @@ export default EventDetail;
 
 export const eventLoader = async (id: string | undefined) => {
   if (!id) {
+    //console.log('Event ID is undefined');
     return null;
   }
 
@@ -50,6 +51,7 @@ export const eventLoader = async (id: string | undefined) => {
 
 export const fightLoader = async (id: string | undefined) => {
   if (!id) {
+    // console.log('Event ID is undefined');
     return null;
   }
 
@@ -59,6 +61,7 @@ export const fightLoader = async (id: string | undefined) => {
 
 export const fighterByFightIdLoader = async (fightIds: number[] | undefined) => {
   if (!fightIds || fightIds.length === 0) {
+    // console.log('Fight IDs are undefined or empty');
     return null;
   }
 
