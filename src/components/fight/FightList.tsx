@@ -1,6 +1,6 @@
 import React from 'react';
 import { Fight, Fighter } from '@/interfaces';
-import FightDetail from 'Fightdetail';
+import FightDetail from './FightDetail';
 
 interface Props {
   fights: Fight[];
