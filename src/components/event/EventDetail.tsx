@@ -1,8 +1,11 @@
 import { getEventById, getFightersByFightId, getFightsByEventId } from '../../api/supabaseDb';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import React from 'react';
 
-const EventDetail = () => {
+
+
+const EventDetail = (props: { event: any; fighters: any }) => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string | undefined }>();
 
@@ -17,18 +20,25 @@ const EventDetail = () => {
   });
 
   // Ensure fights is defined before using it
-  const { data: fighters, isLoading: isLoading } = useQuery({
+  const { data: fighters, isLoading: fightersLoading } = useQuery({
     queryKey: ['fighters', fights?.map((fight) => fight.fight_id)],
     queryFn: () => fights && fighterByFightIdLoader(fights.map((fight) => fight.fight_id)),
     enabled: !!fights, // Only enable the query when fights are loaded
   });
 
-  // Log the fighters array to investigate its structure
-  console.log(fighters);
-
-  if (!id || eventsLoading || fightsLoading || isLoading || !event || !fights || !fighters) {
+  if (!id || eventsLoading || fightsLoading || fightersLoading || !event || !fights || !fighters) {
     return <div>Loading...</div>;
   }
+
+  // Group fighters by fight ID
+  const fightersByFightId: { [key: number]: any[] } = {};
+  fighters.forEach((fighter: any) => {
+    const fightId = fighter.fight_id;
+    if (!fightersByFightId[fightId]) {
+      fightersByFightId[fightId] = [];
+    }
+    fightersByFightId[fightId].push(fighter);
+  });
 
   return (
     <div>
@@ -36,11 +46,17 @@ const EventDetail = () => {
       <img src={event.photo_url ?? ''} alt={event.event_name} width={300} />
       <div className="flex justify-center">
         <ul>
-          {fights.map((fight) => (
-            <li key={fight.fight_id}>
-              {/* Render fight details here */}
-              <div>Fight#{fight.fight_id}</div>
-              {/* Add more fight details as needed */}
+          {Object.keys(fightersByFightId).map((fightId: string) => (
+            <li key={fightId}>
+              <h3>Fight ID {fightId}:</h3>
+              <ul>
+                {fightersByFightId[parseInt(fightId)].map((fighter: any, index: number) => (
+                  <React.Fragment key={fighter.fighter_id}>
+                    {fighter.fighter_name}
+                    {index !== fightersByFightId[parseInt(fightId)].length - 1 && <br /> && ' vs '}
+                  </React.Fragment>
+                ))}
+              </ul>
             </li>
           ))}
         </ul>
@@ -53,7 +69,7 @@ export default EventDetail;
 
 export const eventLoader = async (id: string | undefined) => {
   if (!id) {
-    console.log('Event ID is undefined');
+    //console.log('Event ID is undefined');
     return null;
   }
 
@@ -63,7 +79,7 @@ export const eventLoader = async (id: string | undefined) => {
 
 export const fightLoader = async (id: string | undefined) => {
   if (!id) {
-    console.log('Event ID is undefined');
+    // console.log('Event ID is undefined');
     return null;
   }
 
@@ -72,12 +88,16 @@ export const fightLoader = async (id: string | undefined) => {
 };
 
 export const fighterByFightIdLoader = async (fightIds: number[] | undefined) => {
-  if (!fightIds) {
-    console.log('Fight IDs are undefined');
+  if (!fightIds || fightIds.length === 0) {
+    // console.log('Fight IDs are undefined or empty');
     return null;
   }
-  console.log(fightIds);
-  const fighters = await getFightersByFightId(fightIds);
-  console.log(fighters);
-  return fighters ? fighters : null;
+
+  try {
+    const fighters = await getFightersByFightId(fightIds);
+    return fighters || null;
+  } catch (error) {
+    console.error('Error fetching fighters:', error);
+    return null;
+  }
 };

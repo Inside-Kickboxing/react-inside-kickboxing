@@ -31,6 +31,10 @@ export async function getFightsByEventId(eventId: number[]): Promise<Fight[]> {
   const query = supabase.from('Fights').select('*').in('event_id', eventId);
   return querySupabase(query) || [];
 }
+export async function getFightById(fightId: number): Promise<Fight[]> {
+  const query = supabase.from('Fights').select('*').in('fight_id', [fightId]);
+  return querySupabase(query) || [];
+}
 
 // Fighters
 export async function getAllFighters(): Promise<Fighter[] | null> {
