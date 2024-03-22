@@ -1,9 +1,8 @@
-import { getEventById, getFightersByFightId, getFightsByEventId } from '../../api/supabaseDb';
+import { getEventById, getFightById, getFightersByFightId, getFightsByEventId } from '../../api/supabaseDb';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-
-
+import { Fight, Fighter } from '@/interfaces';
 
 const EventDetail = (props: { event: any; fighters: any }) => {
   const navigate = useNavigate();
@@ -19,7 +18,7 @@ const EventDetail = (props: { event: any; fighters: any }) => {
     queryFn: () => fightLoader(id),
   });
 
-  // Ensure fights is defined before using it
+  // Ensure fights and fighters are defined before using them
   const { data: fighters, isLoading: fightersLoading } = useQuery({
     queryKey: ['fighters', fights?.map((fight) => fight.fight_id)],
     queryFn: () => fights && fighterByFightIdLoader(fights.map((fight) => fight.fight_id)),
@@ -40,6 +39,12 @@ const EventDetail = (props: { event: any; fighters: any }) => {
     fightersByFightId[fightId].push(fighter);
   });
 
+  // Fetch all fight details
+  const fightDetails: { [key: number]: Fight } = {};
+  fights.forEach((fight: Fight) => {
+    fightDetails[fight.fight_id] = fight;
+  });
+
   return (
     <div>
       <h2 className="flex justify-center text-xl">{event.event_name}</h2>
@@ -48,12 +53,15 @@ const EventDetail = (props: { event: any; fighters: any }) => {
         <ul>
           {Object.keys(fightersByFightId).map((fightId: string) => (
             <li key={fightId}>
-              <h3>Fight ID {fightId}:</h3>
+              <h3>
+                Fight ID {fightId} {fightDetails[parseInt(fightId)]?.weight_class}{' '}
+                {fightDetails[parseInt(fightId)]?.title_name}
+              </h3>
               <ul>
-                {fightersByFightId[parseInt(fightId)].map((fighter: any, index: number) => (
+                {fightersByFightId[parseInt(fightId)].map((fighter: Fighter, index: number) => (
                   <React.Fragment key={fighter.fighter_id}>
-                    {fighter.fighter_name}
-                    {index !== fightersByFightId[parseInt(fightId)].length - 1 && <br /> && ' vs '}
+                    <span>{fighter.fighter_name} </span>
+                    {index !== fightersByFightId[parseInt(fightId)].length - 1 && <span> vs </span>}
                   </React.Fragment>
                 ))}
               </ul>
@@ -69,7 +77,6 @@ export default EventDetail;
 
 export const eventLoader = async (id: string | undefined) => {
   if (!id) {
-    //console.log('Event ID is undefined');
     return null;
   }
 
@@ -79,7 +86,6 @@ export const eventLoader = async (id: string | undefined) => {
 
 export const fightLoader = async (id: string | undefined) => {
   if (!id) {
-    // console.log('Event ID is undefined');
     return null;
   }
 
@@ -89,7 +95,6 @@ export const fightLoader = async (id: string | undefined) => {
 
 export const fighterByFightIdLoader = async (fightIds: number[] | undefined) => {
   if (!fightIds || fightIds.length === 0) {
-    // console.log('Fight IDs are undefined or empty');
     return null;
   }
 
