@@ -1,138 +1,137 @@
 // Organizations interface
 export interface Organization {
-  created_at: string;
-  created_by: string;
-  organization_description: string | null;
   organization_id: number;
   organization_name: string;
+  organization_description: string | null;
   organization_url: string | null;
   photo_url: string | null;
+  created_at: string;
   updated_at: string | null;
+  created_by: string;
   updated_by: string;
 }
 
 // Events interface
 export interface Event {
-  created_at: string;
-  created_by: string;
-  event_date: string | null;
   event_id: number;
-  event_location: string | null;
   event_name: string;
-  is_locked: boolean;
+  event_date: string | null;
+  event_location: string | null;
   organization_id: number;
+  is_locked: boolean;
   photo_url: string | null;
+  created_at: string;
   updated_at: string | null;
+  created_by: string;
   updated_by: string;
 }
 
 // Fighters interface
 export interface Fighter {
-  created_at: string;
-  created_by: string;
-  fighter_name: string;
   fighter_id: number;
-  organization_id: number | null;
-  photo_url: string | null;
-  tapology_url: string | null;
+  fighter_name: string;
+  created_at: string;
   updated_at: string | null;
+  photo_url?: string | null;
+  organization_id?: number | null;
+  created_by: string;
   updated_by: string;
-  wikipedia_url: string | null;
+  wikipedia_url?: string | null;
+  tapology_url?: string | null;
+  fight_id?: number | null;
 }
 
 // Fights interface
 export interface Fight {
-  created_at: string;
-  created_by: string;
-  event_id: number;
   fight_id: number;
-  method: string | null;
-  round: string | null;
-  time_of_stoppage: string | null;
-  title_name: string | null;
-  tournament_name: string | null;
+  event_id: number;
+  created_at: string;
   updated_at: string | null;
+  winner_id?: number | null;
+  method?: string | null;
+  round?: string | null;
+  time_of_stoppage?: string | null;
+  created_by: string;
   updated_by: string;
-  weight_class: string | null;
-  winner_id: number | null;
+  weight_class?: string | null;
+  title_name?: string | null;
+  tournament_name?: string | null;
 }
 
-// FightersInFight interface
-export interface FightersInFight {
-  created_at: string;
+// FightHistory interface
+export interface FightHistory {
+  fight_history_id: number;
   fight_id: number;
   fighter_id: number;
-  fighter_in_fight_id: number;
-  is_fighter1: boolean;
-  updated_at: string | null;
+  created_at: string;
 }
 
 // Scores interface
 export interface Score {
-  created_at: string;
-  event_id: number;
-  score: number;
   score_id: number;
-  updated_at: string | null;
+  event_id: number;
   user_id: number;
+  score: number;
+  created_at: string;
+  updated_at: string | null;
 }
 
-// User
+// User interface
 export interface User {
-  created_at: string;
-  location: string | null;
-  photo_url: string | null;
-  updated_at: string | null;
   user_id: number;
   username: string;
+  location: string | null;
+  photo_url: string | null;
+  created_at: string;
+  updated_at: string | null;
 }
 
-// User Predictions
+// User Predictions interface
 export interface UserPrediction {
-  created_at: string;
-  fight_id: number;
-  method: string | null;
-  predicted_winner_id: number | null;
   prediction_id: number;
-  round: string | null;
-  updated_at: string | null;
+  fight_id: number;
   user_id: number;
+  predicted_winner_id: number | null;
+  method: string | null;
+  round: string | null;
+  created_at: string;
+  updated_at: string | null;
 }
 
-// Leaderboard
+// Leaderboard interfaces
 export interface EventLeaderboard {
-  created_at: string;
-  event_id: number;
-  event_score: number;
   leaderboard_id: number;
-  updated_at: string | null;
+  event_id: number;
   user_id: number;
+  event_score: number;
+  created_at: string;
+  updated_at: string | null;
 }
 
 export interface WeeklyLeaderboard {
-  created_at: string;
   leaderboard_id: number;
-  updated_at: string | null;
-  user_id: number;
   week_number: number;
-  weekly_score: number;
   year: number;
+  user_id: number;
+  weekly_score: number;
+  created_at: string;
+  updated_at: string | null;
 }
 
 export interface MonthlyLeaderboard {
-  created_at: string;
   leaderboard_id: number;
   month_number: number;
-  month_score: number;
-  updated_at: string | null;
-  user_id: number;
   year: number;
+  user_id: number;
+  month_score: number;
+  created_at: string;
+  updated_at: string | null;
 }
 
 export interface AllTimeLeaderboard {
+  leaderboard_id: number;
+  user_id: number;
   all_time_score: number;
   created_at: string;
-  leaderboard_id: number;
   updated_at: string | null;
-  user_id: number;
 }

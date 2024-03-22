@@ -1,4 +1,4 @@
-import { getEventById, getFightersInFightByFightId, getFightsByEventId } from '../../api/supabaseDb';
+import { getEventById, getFightsByEventId } from '../../api/supabaseDb';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
@@ -17,11 +17,6 @@ const EventDetail = () => {
     queryFn: () => fightLoader(id),
   });
 
-  const { data: fightersInFight, isLoading: fightersInFightLoading } = useQuery({
-    queryKey: ['fightersInFight', id],
-    queryFn: () => fightersInFightLoader(id),
-  });
-
   // Add a check for undefined ID
   if (id === undefined) {
     console.log('ID is undefined');
@@ -29,17 +24,7 @@ const EventDetail = () => {
     return <div>Loading...</div>;
   }
 
-  if (
-    eventsLoading ||
-    fightsLoading ||
-    fightersInFightLoading ||
-    event == undefined ||
-    event == null ||
-    fights == undefined ||
-    fights == null ||
-    fightersInFight == undefined ||
-    fightersInFight == null
-  ) {
+  if (eventsLoading || fightsLoading || event == undefined || event == null || fights == undefined || fights == null) {
     return <div>Loading...</div>;
   }
 
@@ -48,18 +33,7 @@ const EventDetail = () => {
       <h2 className="flex justify-center text-xl">{event.event_name}</h2>
       <img src={event.photo_url ?? ''} alt={event.event_name} width={300} />
       <div className="flex justify-center">
-        <ul>
-          {fights.map((fight) => (
-            <li key={fight.fight_id}>
-              <div>Fight#{fight.fight_id}</div>
-              <>
-                {fightersInFight.map((fighter) => (
-                  <li>{fighter.fighter_id}</li>
-                ))}
-              </>
-            </li>
-          ))}
-        </ul>
+        <ul></ul>
       </div>
     </div>
   );
@@ -87,15 +61,4 @@ export const fightLoader = async (id: string | undefined) => {
 
   const fights = await getFightsByEventId([parseInt(id)]);
   return fights ? fights : null;
-};
-
-export const fightersInFightLoader = async (id: string | undefined) => {
-  if (id === undefined) {
-    console.log('Event ID is undefined');
-    // Handle the error or navigate to an error page
-    return null;
-  }
-
-  const fightersInFight = await getFightersInFightByFightId([parseInt(id)]);
-  return fightersInFight ? fightersInFight : null;
 };

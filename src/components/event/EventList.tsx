@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getAllEvents, getOrganizationById } from '../../api/supabaseDb';
-import { formatDateTime } from '../../utils/dateUtils'; // Import the formatDateTime function
+import { formatDateTime } from '../../utils/dateFormatter'; // Import the formatDateTime function
 import { useNavigate } from 'react-router-dom';
 
 const EventList = () => {
