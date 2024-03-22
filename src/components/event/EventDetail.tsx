@@ -45,20 +45,22 @@ const EventDetail = () => {
 
   return (
     <div>
+      <h2 className="flex justify-center text-xl">{event.event_name}</h2>
       <img src={event.photo_url ?? ''} alt={event.event_name} width={300} />
-      <h2>{event.event_name}</h2>
-      <ul>
-        {fights.map((fight) => (
-          <li key={fight.fight_id}>
-            <div>Fight#{fight.fight_id}</div>
-            <>
-              {fightersInFight.map((fighter) => (
-                <li>{fighter.fighter_id}</li>
-              ))}
-            </>
-          </li>
-        ))}
-      </ul>
+      <div className="flex justify-center">
+        <ul>
+          {fights.map((fight) => (
+            <li key={fight.fight_id}>
+              <div>Fight#{fight.fight_id}</div>
+              <>
+                {fightersInFight.map((fighter) => (
+                  <li>{fighter.fighter_id}</li>
+                ))}
+              </>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { signInWithEmail } from '../../api/auth/supabaseAuth';
 import { z } from 'zod';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const signInSchema = z.object({
   email: z.string().email('Invalid email address.'),
@@ -10,6 +11,7 @@ const signInSchema = z.object({
 type FormFields = z.infer<typeof signInSchema>;
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -25,6 +27,7 @@ const SignIn = () => {
 
       // Redirect or handle successful sign-in based on your application flow
       console.log('Signed in successfully');
+      navigate('/');
     } catch (error: any) {
       console.error('Error signing in:', error.message);
       setSignInError(error.message);
@@ -50,6 +53,9 @@ const SignIn = () => {
         </button>
         {signInError && <div>{signInError}</div>}
       </form>
+      <NavLink to="/sign-up" end className="">
+        Sign up
+      </NavLink>
     </div>
   );
 };

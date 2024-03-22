@@ -41,7 +41,7 @@ const EventList = () => {
 
   return (
     <div>
-      <h2>Events</h2>
+      <h2 className="flex justify-center text-xl">Events</h2>
       <ul>
         {events &&
           events.map((event) => {
