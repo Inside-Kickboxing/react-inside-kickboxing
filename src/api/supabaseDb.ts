@@ -70,6 +70,21 @@ export async function getFighterById(fighterId: number[]): Promise<Fighter[]> {
   }
 }
 
+// Get  fighter through fighter_id in fightersInFight
+export async function getFighterByFightersInFightFightId(fighterIds: number[]): Promise<Fighter[]> {
+  try {
+    const { data: fighters, error } = await supabase.from('Fighters').select('*').in('fighter_id', fighterIds);
+
+    if (error) {
+      throw error;
+    }
+
+    return fighters || [];
+  } catch (error) {
+    throw error;
+  }
+}
+
 // FightersInFight
 export async function getFightersInFightByFightId(fightId: number[]): Promise<FightersInFight[]> {
   try {
@@ -86,7 +101,6 @@ export async function getFightersInFightByFightId(fightId: number[]): Promise<Fi
 }
 
 // Organizations
-
 export async function getAllOrganizations(): Promise<Organization[] | null> {
   try {
     const { data: events, error } = await supabase.from('Organizations').select('*');
