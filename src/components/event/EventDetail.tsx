@@ -1,11 +1,10 @@
-import { getEventById, getFightsByEventId } from '../../api/supabaseDb';
+import { getEventById, getFightersByFightId, getFightsByEventId } from '../../api/supabaseDb';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 const EventDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string | undefined }>();
-  console.log('organization ID:', id);
 
   const { data: event, isLoading: eventsLoading } = useQuery({
     queryKey: ['event', id],
@@ -17,14 +16,17 @@ const EventDetail = () => {
     queryFn: () => fightLoader(id),
   });
 
-  // Add a check for undefined ID
-  if (id === undefined) {
-    console.log('ID is undefined');
-    // Handle the error or navigate to an error page
-    return <div>Loading...</div>;
-  }
+  // Ensure fights is defined before using it
+  const { data: fighters, isLoading: isLoading } = useQuery({
+    queryKey: ['fighters', fights?.map((fight) => fight.fight_id)],
+    queryFn: () => fights && fighterByFightIdLoader(fights.map((fight) => fight.fight_id)),
+    enabled: !!fights, // Only enable the query when fights are loaded
+  });
 
-  if (eventsLoading || fightsLoading || event == undefined || event == null || fights == undefined || fights == null) {
+  // Log the fighters array to investigate its structure
+  console.log(fighters);
+
+  if (!id || eventsLoading || fightsLoading || isLoading || !event || !fights || !fighters) {
     return <div>Loading...</div>;
   }
 
@@ -33,7 +35,15 @@ const EventDetail = () => {
       <h2 className="flex justify-center text-xl">{event.event_name}</h2>
       <img src={event.photo_url ?? ''} alt={event.event_name} width={300} />
       <div className="flex justify-center">
-        <ul></ul>
+        <ul>
+          {fights.map((fight) => (
+            <li key={fight.fight_id}>
+              {/* Render fight details here */}
+              <div>Fight#{fight.fight_id}</div>
+              {/* Add more fight details as needed */}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
@@ -42,9 +52,8 @@ const EventDetail = () => {
 export default EventDetail;
 
 export const eventLoader = async (id: string | undefined) => {
-  if (id === undefined) {
+  if (!id) {
     console.log('Event ID is undefined');
-    // Handle the error or navigate to an error page
     return null;
   }
 
@@ -53,12 +62,22 @@ export const eventLoader = async (id: string | undefined) => {
 };
 
 export const fightLoader = async (id: string | undefined) => {
-  if (id === undefined) {
+  if (!id) {
     console.log('Event ID is undefined');
-    // Handle the error or navigate to an error page
     return null;
   }
 
   const fights = await getFightsByEventId([parseInt(id)]);
   return fights ? fights : null;
+};
+
+export const fighterByFightIdLoader = async (fightIds: number[] | undefined) => {
+  if (!fightIds) {
+    console.log('Fight IDs are undefined');
+    return null;
+  }
+  console.log(fightIds);
+  const fighters = await getFightersByFightId(fightIds);
+  console.log(fighters);
+  return fighters ? fighters : null;
 };

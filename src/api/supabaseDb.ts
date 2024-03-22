@@ -43,6 +43,11 @@ export async function getFighterById(fighterId: number[]): Promise<Fighter[]> {
   return querySupabase(query) || [];
 }
 
+export async function getFightersByFightId(fightIds: number[]): Promise<Fighter[][]> {
+  const query = supabase.from('Fighters').select('*').in('fight_id', fightIds);
+  return querySupabase(query) || [];
+}
+
 // Organizations
 export async function getAllOrganizations(): Promise<Organization[] | null> {
   const query = supabase.from('Organizations').select('*');
