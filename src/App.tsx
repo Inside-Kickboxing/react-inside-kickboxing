@@ -10,7 +10,7 @@ import {
   FightersPage,
   OrganizationsPage,
 } from './pages';
-import FighterDetail, { fighterLoader } from './components/fighter/FighterDetail';
+import FighterDetail from './components/fighter/FighterDetail';
 import OrganizationDetail, { organizationLoader } from './components/organization/OrganizationDetail';
 import EventDetail, { eventLoader } from './components/event/EventDetail';
 import { AuthProvider } from './hooks/useAuth';
@@ -46,7 +46,6 @@ const router = createBrowserRouter([
       {
         path: '/fighters/:id',
         element: <FighterDetail />,
-        loader: (loaderArgs) => fighterLoader(loaderArgs.params.id),
       },
 
       {

@@ -53,7 +53,7 @@ export const fightLoader = async (id: string | undefined) => {
     return null;
   }
 
-  const fights = await getFightsByEventId([parseInt(id)]);
+  const fights = await getFightsByEventId(Number(id));
   return fights ? fights : null;
 };
 

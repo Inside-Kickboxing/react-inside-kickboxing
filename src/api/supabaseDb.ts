@@ -27,12 +27,12 @@ export async function getEventById(eventId: number[]): Promise<Event[]> {
 }
 
 //Fights
-export async function getFightsByEventId(eventId: number[]): Promise<Fight[]> {
-  const query = supabase.from('Fights').select('*').in('event_id', eventId);
+export async function getFightsByEventId(eventId: number): Promise<Fight[]> {
+  const query = supabase.from('Fights').select('*').eq('event_id', eventId);
   return querySupabase(query) || [];
 }
 export async function getFightById(fightId: number): Promise<Fight[]> {
-  const query = supabase.from('Fights').select('*').in('fight_id', [fightId]);
+  const query = supabase.from('Fights').select('*').eq('fight_id', fightId);
   return querySupabase(query) || [];
 }
 
@@ -42,9 +42,9 @@ export async function getAllFighters(): Promise<Fighter[] | null> {
   return querySupabase(query);
 }
 
-export async function getFighterById(fighterId: number[]): Promise<Fighter[]> {
-  const query = supabase.from('Fighters').select('*').in('fighter_id', fighterId);
-  return querySupabase(query) || [];
+export async function getFighterById(fighterId: number): Promise<Fighter | null> {
+  const query = supabase.from('Fighters').select('*').eq('fighter_id', fighterId);
+  return querySupabase(query).then(result => (result ? result[0] : null));
 }
 
 export async function getFightersByFightId(fightIds: number[]): Promise<Fighter[][]> {
