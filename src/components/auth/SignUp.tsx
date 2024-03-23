@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { ZodError, z, zodResolver } from 'zod';
+import { ZodError, z, } from 'zod';
 import { signUp, checkDisplayNameUnique } from '../../api/auth/supabaseAuth'; // Importing the signUp function from supabaseAuth
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';

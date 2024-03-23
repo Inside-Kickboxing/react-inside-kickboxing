@@ -3,17 +3,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { signInWithEmail } from '../../api/auth/supabaseAuth';
 import { z } from 'zod';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
 
 const signInSchema = z.object({
   email: z.string().email('Invalid email address.'),
