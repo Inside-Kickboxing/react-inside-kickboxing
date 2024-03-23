@@ -3,15 +3,14 @@ name: CI/CD
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [17.x]
+        node-version: [21.x]
 
     steps:
     - name: Checkout repository
