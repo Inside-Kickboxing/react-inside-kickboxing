@@ -14,6 +14,7 @@ import FighterDetail from './components/fighter/FighterDetail';
 import OrganizationDetail from './components/organization/OrganizationDetail';
 import EventDetail from './components/event/EventDetail';
 import { AuthProvider } from './hooks/useAuth';
+import { ThemeProvider } from './components/themeProvider';
 
 const router = createBrowserRouter([
   {
@@ -63,11 +64,14 @@ const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <AuthProvider>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </AuthProvider>
+      \
+    </ThemeProvider>
   );
 };
 

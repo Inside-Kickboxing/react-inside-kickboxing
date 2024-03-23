@@ -79,9 +79,10 @@ export interface Score {
 // User interface
 export interface User {
   user_id: number;
-  username: string;
+  auth_id: string;
+  display_name: string;
   location?: string;
-  photo_url?: string;
+  biography?: string;
   created_at: string;
   updated_at?: string;
 }
