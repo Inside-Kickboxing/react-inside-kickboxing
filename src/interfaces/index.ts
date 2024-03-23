@@ -86,6 +86,16 @@ export interface User {
   updated_at: string | null;
 }
 
+export interface UserEventTracking {
+  id: number;
+  created_at: string;
+  event_id: number;
+  user_id: number;
+  watched: boolean | null;
+  want_to_watch: boolean | null;
+  rating: number | null;
+}
+
 // User Predictions interface
 export interface UserPrediction {
   prediction_id: number;
