@@ -1,9 +1,18 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ZodError, z } from 'zod';
-import { signUp } from '../../api/auth/supabaseAuth'; // Importing the signUp function from supabaseAuth
+import { signUp, checkDisplayNameUnique } from '../../api/auth/supabaseAuth'; // Importing the signUp function from supabaseAuth
 import { NavLink } from 'react-router-dom';
 
 const signupSchema = z.object({
+  displayName: z
+    .string()
+    .refine((value) => value.length <= 36, {
+      message: 'Brukernavn kan ikke være mer enn 36 tegn.',
+    })
+    .refine((value) => /^[a-zA-Z0-9_-]+$/.test(value), {
+      message:
+        'Invalid character in display name. Only uppercase/lowercase letters, numbers, underscores and hyphens are allowed.',
+    }),
   email: z.string().email('Invalid email address.'),
   password: z.string().min(8, 'Password must be at least 8 characters.'),
 });
@@ -38,8 +47,19 @@ const SignUp = () => {
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
+      // Check if the display name is unique
+      const isDisplayNameUnique = await checkDisplayNameUnique(data.displayName);
+
+      if (!isDisplayNameUnique) {
+        setError('displayName', {
+          type: 'manual',
+          message: 'Display name is not unique.',
+        });
+        return; // Stop execution if display name is not unique
+      }
+
       // Call signUp function to create account
-      const userData = await signUp(data.email, data.password);
+      const userData = await signUp(data.email, data.password, data.displayName);
 
       // Check for successful account creation
       if (userData) {
@@ -62,6 +82,11 @@ const SignUp = () => {
     <div>
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <label>Display name</label>
+          <input type="text" {...register('displayName')} />
+          {errors.displayName && <span>{errors.displayName.message}</span>}
+        </div>
         <div>
           <label>Email</label>
           <input type="text" {...register('email')} />
