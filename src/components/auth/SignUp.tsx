@@ -1,4 +1,3 @@
-import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ZodError, z } from 'zod';
 import { signUp } from '../../api/auth/supabaseAuth'; // Importing the signUp function from supabaseAuth

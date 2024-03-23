@@ -1,5 +1,4 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import SignOut from '../auth/SignOut';
 import { useAuth } from '@/hooks/useAuth';
 import { signOut } from '@/api/auth/supabaseAuth';
 

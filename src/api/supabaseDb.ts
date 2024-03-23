@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabase';
-import { Event, Fight, Fighter, FightHistory, Organization } from '../interfaces/';
+import { Event, Fight, Fighter, /*FightHistory, */ Organization } from '../interfaces/';
 import { handleError } from '@/utils/errorHandler';
 
 // Wrapper function for Supabase queries with error handling
