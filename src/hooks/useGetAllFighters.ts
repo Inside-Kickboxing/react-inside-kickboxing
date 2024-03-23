@@ -6,7 +6,7 @@ const useGetAllFighters = () => {
         queryKey: ['fighters'],
         queryFn: () => getAllFighters(),
     })
-    return { fighters: data,isFightersLoading: isLoading, isFightersError: isError };
+    return { fighters: data, isFightersLoading: isLoading, isFightersError: isError };
 }
 
 export default useGetAllFighters;
