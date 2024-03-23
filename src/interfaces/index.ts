@@ -108,6 +108,18 @@ export interface UserPrediction {
   updated_at: string | null;
 }
 
+// User Event Tracking interface
+export interface UserEventTracking {
+  id: number;
+  created_at: string;
+  event_id: number;
+  user_id: number;
+  watched: boolean | null;
+  want_to_watch: boolean | null;
+  rating: number | null;
+  dated_watched: Date | null;
+}
+
 // Leaderboard interfaces
 export interface EventLeaderboard {
   leaderboard_id: number;
