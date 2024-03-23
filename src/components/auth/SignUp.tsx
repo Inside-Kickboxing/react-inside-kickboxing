@@ -1,13 +1,15 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { ZodError, z } from 'zod';
+import { ZodError, z, zodResolver } from 'zod';
 import { signUp, checkDisplayNameUnique } from '../../api/auth/supabaseAuth'; // Importing the signUp function from supabaseAuth
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import SignIn from './SignIn';
 
-const signupSchema = z.object({
+const signUpSchema = z.object({
   displayName: z
     .string()
     .refine((value) => value.length <= 36, {
-      message: 'Brukernavn kan ikke være mer enn 36 tegn.',
+      message: 'Display name must be 36 characters or less.',
     })
     .refine((value) => /^[a-zA-Z0-9_-]+$/.test(value), {
       message:
@@ -16,9 +18,10 @@ const signupSchema = z.object({
   email: z.string().email('Invalid email address.'),
   password: z.string().min(8, 'Password must be at least 8 characters.'),
 });
-type FormFields = z.infer<typeof signupSchema>;
+type FormFields = z.infer<typeof signUpSchema>;
 
 const SignUp = () => {
+  const [isAccountCreated, setIsAccountCreated] = useState(false);
   const {
     register,
     handleSubmit,
@@ -28,7 +31,7 @@ const SignUp = () => {
     resolver: async (data) => {
       try {
         // Validate form data using Zod
-        signupSchema.parse(data);
+        signUpSchema.parse(data);
         return { values: data, errors: {} };
       } catch (error) {
         if (error instanceof ZodError) {
@@ -65,6 +68,7 @@ const SignUp = () => {
       if (userData) {
         // Create a session for the user (you can handle this part based on your application flow)
         console.log('Account created successfully:', userData);
+        setIsAccountCreated(true);
       }
     } catch (error: any) {
       console.error((error as Error).message);
@@ -78,23 +82,28 @@ const SignUp = () => {
     }
   };
 
+  if (isAccountCreated) {
+    return (
+      <div>
+        <p>Please confirm your email address before logging in.</p>
+        <SignIn />
+      </div>
+    );
+  }
+
   return (
     <div>
-      <h2>Sign Up</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label>Display name</label>
-          <input type="text" {...register('displayName')} />
+          <input type="text" placeholder="Username" {...register('displayName')} />
           {errors.displayName && <span>{errors.displayName.message}</span>}
         </div>
         <div>
-          <label>Email</label>
-          <input type="text" {...register('email')} />
+          <input type="text" placeholder="Email" {...register('email')} />
           {errors.email && <span>{errors.email.message}</span>}
         </div>
         <div>
-          <label>Password</label>
-          <input type="password" {...register('password')} />
+          <input type="password" placeholder="Password" {...register('password')} />
           {errors.password && <span>{errors.password.message}</span>}
         </div>
         <button type="submit" disabled={isSubmitting}>

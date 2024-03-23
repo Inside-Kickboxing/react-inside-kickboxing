@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { signOut } from '@/api/auth/supabaseAuth';
+import ThemeToggle from '../ThemeToggle';
 
 const MainNavigation = () => {
   const { session } = useAuth();
@@ -51,6 +52,9 @@ const MainNavigation = () => {
             </NavLink>
           </li>
         )}
+        <li>
+          <ThemeToggle />
+        </li>
       </ul>
     </nav>
   );
