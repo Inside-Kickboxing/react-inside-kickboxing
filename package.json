@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://insidekickboxing.com/",
+  "homepage": "https://www.insidekickboxing.com",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
