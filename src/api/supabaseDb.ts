@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabase';
-import { Event, Fight, Fighter, /*FightHistory, */ Organization } from '../interfaces/';
+import { Event, Fight, Fighter, /*FightHistory, */ Organization, User } from '../interfaces/';
 import { handleError } from '@/utils/errorHandler';
 
 // Wrapper function for Supabase queries with error handling
@@ -61,4 +61,10 @@ export async function getAllOrganizations(): Promise<Organization[] | null> {
 export async function getOrganizationById(organizationId: number): Promise<Organization | null> {
   const query = supabase.from('Organizations').select('*').eq('organization_id', organizationId);
   return querySupabase(query).then((result) => (result ? result[0] : null));
+}
+
+// Users
+export async function getUserByAuthId(authId: string): Promise<User> {
+  const query = supabase.from('Users').select('*').eq('auth_id', authId);
+  return querySupabase(query);
 }

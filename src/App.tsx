@@ -9,6 +9,7 @@ import {
   SignInPage,
   FightersPage,
   OrganizationsPage,
+  UserProfilePage,
 } from './pages';
 import FighterDetail from './components/fighter/FighterDetail';
 import OrganizationDetail from './components/organization/OrganizationDetail';
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: '/organizations/:id',
         element: <OrganizationDetail />,
+      },
+      {
+        path: '/profile',
+        element: <UserProfilePage />,
       },
     ],
   },

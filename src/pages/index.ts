@@ -6,5 +6,6 @@ import SignUpPage from './SignUpPage';
 import SignInPage from './SignInPage';
 import FightersPage from './FightersPage';
 import OrganizationsPage from './OrganizationsPage';
+import UserProfilePage from './UserProfilePage';
 
-export { RootLayout, HomePage, ErrorPage, SignUpPage, SignInPage, EventsPage, FightersPage, OrganizationsPage };
+export { RootLayout, HomePage, ErrorPage, SignUpPage, SignInPage, EventsPage, FightersPage, OrganizationsPage, UserProfilePage };
