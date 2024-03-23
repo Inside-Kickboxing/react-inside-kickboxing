@@ -2,11 +2,11 @@
 export interface Organization {
   organization_id: number;
   organization_name: string;
-  organization_description: string | null;
-  organization_url: string | null;
-  photo_url: string | null;
+  organization_description?: string;
+  organization_url?: string;
+  photo_url?: string;
   created_at: string;
-  updated_at: string | null;
+  updated_at?: string;
   created_by: string;
   updated_by: string;
 }
@@ -15,13 +15,13 @@ export interface Organization {
 export interface Event {
   event_id: number;
   event_name: string;
-  event_date: string | null;
-  event_location: string | null;
+  event_date?: string;
+  event_location?: string;
   organization_id: number;
   is_locked: boolean;
-  photo_url: string | null;
+  photo_url?: string;
   created_at: string;
-  updated_at: string | null;
+  updated_at?: string;
   created_by: string;
   updated_by: string;
 }
@@ -31,14 +31,14 @@ export interface Fighter {
   fighter_id: number;
   fighter_name: string;
   created_at: string;
-  updated_at: string | null;
-  photo_url?: string | null;
-  organization_id?: number | null;
+  updated_at?: string;
+  photo_url?: string;
+  organization_id?: number;
   created_by: string;
   updated_by: string;
-  wikipedia_url?: string | null;
-  tapology_url?: string | null;
-  fight_id?: number | null;
+  wikipedia_url?: string;
+  tapology_url?: string;
+  fight_id?: number;
 }
 
 // Fights interface
@@ -46,16 +46,16 @@ export interface Fight {
   fight_id: number;
   event_id: number;
   created_at: string;
-  updated_at: string | null;
-  winner_id?: number | null;
-  method?: string | null;
-  round?: string | null;
-  time_of_stoppage?: string | null;
+  updated_at?: string;
+  winner_id?: number;
+  method?: string;
+  round?: string;
+  time_of_stoppage?: string;
   created_by: string;
   updated_by: string;
-  weight_class?: string | null;
-  title_name?: string | null;
-  tournament_name?: string | null;
+  weight_class?: string;
+  title_name?: string;
+  tournament_name?: string;
 }
 
 // FightHistory interface
@@ -73,27 +73,17 @@ export interface Score {
   user_id: number;
   score: number;
   created_at: string;
-  updated_at: string | null;
+  updated_at?: string;
 }
 
 // User interface
 export interface User {
   user_id: number;
   username: string;
-  location: string | null;
-  photo_url: string | null;
+  location?: string;
+  photo_url?: string;
   created_at: string;
-  updated_at: string | null;
-}
-
-export interface UserEventTracking {
-  id: number;
-  created_at: string;
-  event_id: number;
-  user_id: number;
-  watched: boolean | null;
-  want_to_watch: boolean | null;
-  rating: number | null;
+  updated_at?: string;
 }
 
 // User Predictions interface
@@ -101,11 +91,11 @@ export interface UserPrediction {
   prediction_id: number;
   fight_id: number;
   user_id: number;
-  predicted_winner_id: number | null;
-  method: string | null;
-  round: string | null;
+  predicted_winner_id?: number;
+  method?: string;
+  round?: string;
   created_at: string;
-  updated_at: string | null;
+  updated_at?: string;
 }
 
 // User Event Tracking interface
@@ -114,10 +104,10 @@ export interface UserEventTracking {
   created_at: string;
   event_id: number;
   user_id: number;
-  watched: boolean | null;
-  want_to_watch: boolean | null;
-  rating: number | null;
-  dated_watched: Date | null;
+  watched?: boolean;
+  want_to_watch?: boolean;
+  rating?: number;
+  dated_watched?: Date;
 }
 
 // Leaderboard interfaces
@@ -127,7 +117,7 @@ export interface EventLeaderboard {
   user_id: number;
   event_score: number;
   created_at: string;
-  updated_at: string | null;
+  updated_at?: string;
 }
 
 export interface WeeklyLeaderboard {
@@ -137,7 +127,7 @@ export interface WeeklyLeaderboard {
   user_id: number;
   weekly_score: number;
   created_at: string;
-  updated_at: string | null;
+  updated_at?: string;
 }
 
 export interface MonthlyLeaderboard {
@@ -147,7 +137,7 @@ export interface MonthlyLeaderboard {
   user_id: number;
   month_score: number;
   created_at: string;
-  updated_at: string | null;
+  updated_at?: string;
 }
 
 export interface AllTimeLeaderboard {
@@ -155,5 +145,5 @@ export interface AllTimeLeaderboard {
   user_id: number;
   all_time_score: number;
   created_at: string;
-  updated_at: string | null;
+  updated_at?: string;
 }
