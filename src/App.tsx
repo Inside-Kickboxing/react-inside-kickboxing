@@ -37,7 +37,6 @@ const router = createBrowserRouter([
       {
         path: '/events/:id',
         element: <EventDetail />,
-        // loader: (loaderArgs) => eventLoader(loaderArgs.params.id),
       },
       {
         path: '/fighters',
