@@ -1,9 +1,9 @@
 import { getOrganizationById } from '../../api/supabaseDb';
-import { useNavigate, useParams } from 'react-router-dom';
+import { /* useNavigate,*/ useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 const OrganizationDetail = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { id } = useParams<{ id: string | undefined }>();
   console.log('Organization ID:', id);
 

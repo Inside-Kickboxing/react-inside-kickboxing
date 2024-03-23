@@ -1,4 +1,3 @@
-import React from 'react';
 import { signOut } from '../../api/auth/supabaseAuth';
 import { useNavigate } from 'react-router-dom';
 

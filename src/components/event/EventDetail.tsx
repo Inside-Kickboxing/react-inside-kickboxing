@@ -1,9 +1,7 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Fight, Fighter } from '@/interfaces';
 import { getEventById, getFightsByEventId, getFightersByFightId } from '../../api/supabaseDb';
-import FightList from '../fight/FightList';
+// import FightList from '../fight/FightList';
 
 const EventDetail = () => {
   const { id } = useParams<{ id: string | undefined }>();
@@ -32,7 +30,7 @@ const EventDetail = () => {
     <div>
       <h2 className="flex justify-center text-xl">{event.event_name}</h2>
       <img src={event.photo_url ?? ''} alt={event.event_name} width={300} />
-      <FightList fights={fights} fighters={fighters} />
+      {/* <FightList fights={fights} fighters={fighters} /> */}
     </div>
   );
 };
