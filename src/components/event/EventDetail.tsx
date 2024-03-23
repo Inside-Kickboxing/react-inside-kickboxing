@@ -5,10 +5,10 @@ import useGetFightsByEvent from '@/hooks/useGetFightsByEvent';
 
 const EventDetail = () => {
   const { id } = useParams();
-  const { event, isEventLoading} = useGetEvent(Number(id));
+  const { event, isEventLoading } = useGetEvent(Number(id));
   const { eventFights, isEventFightsLoading } = useGetFightsByEvent(Number(id));
 
-  if (isEventLoading || isEventFightsLoading ) {
+  if (isEventLoading || isEventFightsLoading) {
     return <div>Loading...</div>;
   }
 
@@ -16,9 +16,7 @@ const EventDetail = () => {
     <div>
       <h2 className="flex justify-center text-xl">{event?.event_name}</h2>
       <img src={event?.photo_url ?? ''} alt={event?.event_name} width={300} />
-      {eventFights?.map((fight) => (
-        <FightList key={fight.fight_id} fight={fight} />
-      ))}
+      {eventFights?.map((fight) => <FightList key={fight.fight_id} fight={fight} />)}
     </div>
   );
 };
