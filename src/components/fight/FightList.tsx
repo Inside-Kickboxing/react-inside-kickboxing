@@ -1,21 +1,21 @@
 import React from 'react';
-import { Fight, Fighter } from '@/interfaces';
+import { Fight } from '@/interfaces';
 import FightDetails from './FightDetail';
+import useGetFightersByFight from '@/hooks/useGetFightersByFight';
 
 interface Props {
-  fights: Fight[];
-  fighters: Fighter[];
+  fight: Fight;
 }
 
-const FightList: React.FC<Props> = ({ fights, fighters }) => {
+const FightList: React.FC<Props> = ({ fight }) => {
+  const { fighters } = useGetFightersByFight(fight.fight_id);
+
   return (
-    <div className="flex justify-center">
+    <div>
       <ul>
-        {fights.map((fight) => (
-          <li key={fight.fight_id}>
-            <FightDetails fight={fight} fighters={fighters} />
-          </li>
-        ))}
+        <li key={fight.fight_id}>
+          { fighters && (<FightDetails fight={fight} fighters={fighters} />) }
+        </li>
       </ul>
     </div>
   );
