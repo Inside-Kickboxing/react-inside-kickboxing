@@ -2,9 +2,9 @@ import { useAuth } from '@/hooks/useAuth';
 import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }: any) => {
-  const { user } = useAuth();
+  const { authUser } = useAuth();
 
-  if (!user) {
+  if (!authUser) {
     // user is not authenticated
     return <Navigate to="/sign-in" />;
   }

@@ -9,12 +9,14 @@ import {
   SignInPage,
   FightersPage,
   OrganizationsPage,
+  UserProfilePage,
 } from './pages';
 import FighterDetail from './components/fighter/FighterDetail';
 import OrganizationDetail from './components/organization/OrganizationDetail';
 import EventDetail from './components/event/EventDetail';
 import { AuthProvider } from './hooks/useAuth';
 import { ThemeProvider } from './components/themeProvider';
+import PublicProfileDetail from './components/user/PublicProfileDetail';
 
 const router = createBrowserRouter([
   {
@@ -55,6 +57,14 @@ const router = createBrowserRouter([
       {
         path: '/organizations/:id',
         element: <OrganizationDetail />,
+      },
+      {
+        path: '/profile',
+        element: <UserProfilePage />,
+      },
+      {
+        path: '/profile/:id',
+        element: <PublicProfileDetail />,
       },
     ],
   },

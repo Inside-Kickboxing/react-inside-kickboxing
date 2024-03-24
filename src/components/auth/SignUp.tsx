@@ -1,9 +1,8 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { ZodError, z, } from 'zod';
+import { ZodError, z } from 'zod';
 import { signUp, checkDisplayNameUnique } from '../../api/auth/supabaseAuth'; // Importing the signUp function from supabaseAuth
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
-import SignIn from './SignIn';
 
 const signUpSchema = z.object({
   displayName: z
@@ -30,12 +29,10 @@ const SignUp = () => {
   } = useForm<FormFields>({
     resolver: async (data) => {
       try {
-        // Validate form data using Zod
         signUpSchema.parse(data);
         return { values: data, errors: {} };
       } catch (error) {
         if (error instanceof ZodError) {
-          // Convert Zod errors to match react-hook-form's error structure
           const formErrors: Record<string, { message: string }> = Object.fromEntries(
             error.errors.map((err) => [err.path.join('.'), { message: err.message }]),
           );
@@ -50,7 +47,6 @@ const SignUp = () => {
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
-      // Check if the display name is unique
       const isDisplayNameUnique = await checkDisplayNameUnique(data.displayName);
 
       if (!isDisplayNameUnique) {
@@ -58,7 +54,7 @@ const SignUp = () => {
           type: 'manual',
           message: 'Display name is not unique.',
         });
-        return; // Stop execution if display name is not unique
+        return;
       }
 
       // Call signUp function to create account
@@ -66,8 +62,6 @@ const SignUp = () => {
 
       // Check for successful account creation
       if (userData) {
-        // Create a session for the user (you can handle this part based on your application flow)
-        console.log('Account created successfully:', userData);
         setIsAccountCreated(true);
       }
     } catch (error: any) {
@@ -85,8 +79,11 @@ const SignUp = () => {
   if (isAccountCreated) {
     return (
       <div>
-        <p>Please confirm your email address before logging in.</p>
-        <SignIn />
+        <h2>Account Created</h2>
+        <p>Your account has been created successfully. Please verify your email before continuing..</p>
+        <NavLink to="/sign-in" end className="">
+          Go to Sign In
+        </NavLink>
       </div>
     );
   }
@@ -110,9 +107,6 @@ const SignUp = () => {
           {isSubmitting ? 'Submitting...' : 'Sign Up'}
         </button>
       </form>
-      <NavLink to="/sign-in" end className="">
-        Back to Sign In
-      </NavLink>
     </div>
   );
 };
