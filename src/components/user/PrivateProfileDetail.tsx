@@ -1,9 +1,9 @@
 import { useAuth } from '@/hooks/useAuth';
-import useGetUser from '@/hooks/useGetUser';
+import useGetUserByAuthUser from '@/hooks/useGetUserByAuthUser';
 import { formatDateTime } from '@/utils/dateFormatter';
-const ProfileDetail = () => {
+const PrivateProfileDetail = () => {
   const { authUser } = useAuth();
-  const { user, isUserLoading } = useGetUser(authUser?.id as string);
+  const { user, isUserLoading } = useGetUserByAuthUser(authUser?.id as string);
   if (isUserLoading) {
     return <div>Loading...</div>;
   }
@@ -15,10 +15,9 @@ const ProfileDetail = () => {
         <div>
           <h2></h2>
           <p>Email: {authUser?.email}</p>
-          <>{authUser?.id}</>
-          You've been with us since {authUser && <>{formatDateTime(authUser.created_at)}</>}
-          <>{user.display_name}</>
-          <>{user.location}</>
+          <p>Name: {user.display_name}</p>
+          <p>Location: {user.location}</p>
+          You've been with us since {authUser && <>{formatDateTime(authUser.created_at)}!</>}
         </div>
       ) : (
         <div>You are not logged in.</div>
@@ -27,4 +26,4 @@ const ProfileDetail = () => {
   );
 };
 
-export default ProfileDetail;
+export default PrivateProfileDetail;

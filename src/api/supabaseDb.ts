@@ -64,7 +64,13 @@ export async function getOrganizationById(organizationId: number): Promise<Organ
 }
 
 // Users
+
+export async function getUserById(userId: number): Promise<User> {
+  const query = supabase.from('Users').select('*').eq('user_id', userId);
+  return querySupabase(query).then((result) => (result ? result[0] : null));
+}
+
 export async function getUserByAuthId(authId: string): Promise<User> {
   const query = supabase.from('Users').select('*').eq('auth_id', authId);
-  return querySupabase(query);
+  return querySupabase(query).then((result) => (result ? result[0] : null));
 }

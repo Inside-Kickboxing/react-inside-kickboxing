@@ -1,10 +1,10 @@
-import { getUserByAuthId } from '@/api/supabaseDb';
+import { getUserById } from '@/api/supabaseDb';
 import { useQuery } from '@tanstack/react-query';
 
-const useGetUser = (authId: string) => {
+const useGetUser = (id: number) => {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['userById', authId],
-    queryFn: () => getUserByAuthId(authId),
+    queryKey: ['userById', id],
+    queryFn: () => getUserById(Number(id)),
   });
   return { user: data, isUserLoading: isLoading, isUserError: isError };
 };
