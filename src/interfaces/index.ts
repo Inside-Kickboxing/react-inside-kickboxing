@@ -80,6 +80,7 @@ export interface Score {
 export interface User {
   user_id: number;
   auth_id: string;
+  role: string; // 'admin' | 'user';
   display_name: string;
   location?: string;
   biography?: string;

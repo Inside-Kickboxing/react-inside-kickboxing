@@ -15,9 +15,10 @@ const PrivateProfileDetail = () => {
         <div>
           <h2></h2>
           <p>Email: {authUser?.email}</p>
+          {user.role === 'admin' && <p>Role: {user.role}</p>}
           <p>Name: {user.display_name}</p>
           <p>Location: {user.location}</p>
-          You've been with us since {authUser && <>{formatDateTime(authUser.created_at)}!</>}
+          You've been with us since {authUser && <>{formatDateTime(authUser.created_at)}!</>}={' '}
         </div>
       ) : (
         <div>You are not logged in.</div>
