@@ -28,11 +28,11 @@ const FighterList = () => {
         {fighters &&
           fighters.map((fighter) => (
             <li
-              key={fighter.fighter_id}
-              onClick={() => navigate(`${fighter.fighter_id}`)}
+              key={fighter.id}
+              onClick={() => navigate(`${fighter.id}`)}
               className="flex justify-center text-s"
             >
-              <div>{fighter.fighter_name}</div>
+              <div>{fighter.name}</div>
             </li>
           ))}
       </ul>

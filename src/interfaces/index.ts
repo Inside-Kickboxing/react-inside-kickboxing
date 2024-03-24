@@ -1,9 +1,9 @@
 // Organizations interface
 export interface Organization {
-  organization_id: number;
-  organization_name: string;
-  organization_description?: string;
-  organization_url?: string;
+  id: number;
+  name: string;
+  description?: string;
+  url?: string;
   photo_url?: string;
   created_at: string;
   updated_at?: string;
@@ -13,10 +13,10 @@ export interface Organization {
 
 // Events interface
 export interface Event {
-  event_id: number;
-  event_name: string;
-  event_date?: string;
-  event_location?: string;
+  id: number;
+  name: string;
+  date?: string;
+  location?: string;
   organization_id: number;
   is_locked: boolean;
   photo_url?: string;
@@ -28,8 +28,8 @@ export interface Event {
 
 // Fighters interface
 export interface Fighter {
-  fighter_id: number;
-  fighter_name: string;
+  id: number;
+  name: string;
   created_at: string;
   updated_at?: string;
   photo_url?: string;
@@ -43,7 +43,7 @@ export interface Fighter {
 
 // Fights interface
 export interface Fight {
-  fight_id: number;
+  id: number;
   event_id: number;
   created_at: string;
   updated_at?: string;
@@ -60,7 +60,7 @@ export interface Fight {
 
 // FightHistory interface
 export interface FightHistory {
-  fight_history_id: number;
+  id: number;
   fight_id: number;
   fighter_id: number;
   created_at: string;
@@ -68,7 +68,7 @@ export interface FightHistory {
 
 // Scores interface
 export interface Score {
-  score_id: number;
+  id: number;
   event_id: number;
   user_id: number;
   score: number;
@@ -78,7 +78,7 @@ export interface Score {
 
 // User interface
 export interface User {
-  user_id: number;
+  id: number;
   auth_id: string;
   role: string; // 'admin' | 'user';
   display_name: string;
@@ -90,7 +90,7 @@ export interface User {
 
 // User Predictions interface
 export interface UserPrediction {
-  prediction_id: number;
+  id: number;
   fight_id: number;
   user_id: number;
   predicted_winner_id?: number;
@@ -114,7 +114,7 @@ export interface UserEventTracking {
 
 // Leaderboard interfaces
 export interface EventLeaderboard {
-  leaderboard_id: number;
+  id: number;
   event_id: number;
   user_id: number;
   event_score: number;
@@ -123,7 +123,7 @@ export interface EventLeaderboard {
 }
 
 export interface WeeklyLeaderboard {
-  leaderboard_id: number;
+  id: number;
   week_number: number;
   year: number;
   user_id: number;
@@ -133,7 +133,7 @@ export interface WeeklyLeaderboard {
 }
 
 export interface MonthlyLeaderboard {
-  leaderboard_id: number;
+  id: number;
   month_number: number;
   year: number;
   user_id: number;
@@ -143,7 +143,7 @@ export interface MonthlyLeaderboard {
 }
 
 export interface AllTimeLeaderboard {
-  leaderboard_id: number;
+  id: number;
   user_id: number;
   all_time_score: number;
   created_at: string;
