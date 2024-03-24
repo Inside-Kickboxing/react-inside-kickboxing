@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const useGetUserByAuthUser = (authId: string) => {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['userById', authId],
+    queryKey: ['userByAuthId', authId],
     queryFn: () => getUserByAuthId(authId),
   });
   return { user: data, isUserLoading: isLoading, isUserError: isError };
