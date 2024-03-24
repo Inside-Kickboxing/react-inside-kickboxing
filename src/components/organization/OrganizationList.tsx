@@ -26,8 +26,8 @@ const OrganizationList = () => {
       <ul>
         {organizations &&
           organizations.map((organization) => (
-            <li key={organization.organization_id} onClick={() => navigate(`${organization.organization_id}`)}>
-              <h3 className="flex justify-center">{organization.organization_name}</h3>
+            <li key={organization.id} onClick={() => navigate(`${organization.id}`)}>
+              <h3 className="flex justify-center">{organization.name}</h3>
             </li>
           ))}
       </ul>

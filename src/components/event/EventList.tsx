@@ -32,11 +32,11 @@ const EventList = () => {
         {events &&
           events.map((event) => {
             return (
-              <li key={event.event_id} onClick={() => navigate(`${event.event_id}`)}>
-                <img src={event.photo_url ?? ''} alt={event.event_name} width={300} />
-                <div>{event.event_name}</div>
-                {event.event_date && <div>{formatDateTime(event.event_date)}</div>}
-                <span>{event.event_location}</span>
+              <li key={event.id} onClick={() => navigate(`${event.id}`)}>
+                <img src={event.photo_url ?? ''} alt={event.name} width={300} />
+                <div>{event.name}</div>
+                {event.date && <div>{formatDateTime(event.date)}</div>}
+                <span>{event.location}</span>
               </li>
             );
           })}

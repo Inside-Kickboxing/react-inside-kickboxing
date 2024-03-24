@@ -17,7 +17,7 @@ const FighterDetail = () => {
       {fighter?.photo_url && (
         <img src={fighter?.photo_url}/>
       )}
-      <h2>{fighter?.fighter_name}</h2>
+      <h2>{fighter?.name}</h2>
     </div>
   );
 };

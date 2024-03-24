@@ -8,12 +8,12 @@ interface Props {
 }
 
 const FightList: React.FC<Props> = ({ fight }) => {
-  const { fighters } = useGetFightersByFight(fight.fight_id);
+  const { fighters } = useGetFightersByFight(fight.id);
 
   return (
     <div>
       <ul>
-        <li key={fight.fight_id}>
+        <li key={fight.id}>
           { fighters && (<FightDetails fight={fight} fighters={fighters} />) }
         </li>
       </ul>

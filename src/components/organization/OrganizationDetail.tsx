@@ -11,11 +11,11 @@ const OrganizationDetail = () => {
 
   return (
     <div>
-      <h2 className="flex justify-center text-xl">{organization?.organization_name}</h2>
+      <h2 className="flex justify-center text-xl">{organization?.name}</h2>
       <div className="flex justify-center">
-        <img src={organization?.photo_url ?? ''} alt={organization?.organization_name} width={300} />
+        <img src={organization?.photo_url ?? ''} alt={organization?.name} width={300} />
       </div>
-      <p className="flex justify-center">{organization?.organization_description}</p>
+      <p className="flex justify-center">{organization?.description}</p>
     </div>
   );
 };

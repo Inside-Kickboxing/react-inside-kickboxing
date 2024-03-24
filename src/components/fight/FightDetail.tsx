@@ -11,12 +11,12 @@ const FightDetail: React.FC<Props> = ({ fight, fighters }) => {
   return (
     <div>
       <h3>
-        Fight ID {fight.fight_id} {fight.weight_class} {fight.title_name}
+        Fight ID {fight.id} {fight.weight_class} {fight.title_name}
       </h3>
       <ul>
         {fighters.map((fighter, index) => (
-          <React.Fragment key={fighter.fighter_id}>
-            <span>{fighter.fighter_name} </span>
+          <React.Fragment key={fighter.id}>
+            <span>{fighter.name} </span>
             {index !== fighters.length - 1 && <span> vs </span>}
           </React.Fragment>
         ))}

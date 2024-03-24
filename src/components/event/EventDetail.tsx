@@ -14,9 +14,9 @@ const EventDetail = () => {
 
   return (
     <div>
-      <h2 className="flex justify-center text-xl">{event?.event_name}</h2>
-      <img src={event?.photo_url ?? ''} alt={event?.event_name} width={300} />
-      {eventFights?.map((fight) => <FightList key={fight.fight_id} fight={fight} />)}
+      <h2 className="flex justify-center text-xl">{event?.name}</h2>
+      <img src={event?.photo_url ?? ''} alt={event?.name} width={300} />
+      {eventFights?.map((fight) => <FightList key={fight.id} fight={fight} />)}
     </div>
   );
 };
