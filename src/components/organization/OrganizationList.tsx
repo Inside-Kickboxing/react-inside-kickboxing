@@ -1,25 +1,18 @@
-import { getAllOrganizations } from '../../api/supabaseDb';
-import { useQuery } from '@tanstack/react-query';
+import useGetAllOrganizations from '@/hooks/useGetAllOrganizations';
 import { useNavigate } from 'react-router-dom';
 
 const OrganizationList = () => {
   const navigate = useNavigate();
-  const {
-    data: organizations,
-    isLoading: organizationsLoading,
-    isError: organizationsError,
-  } = useQuery({
-    queryKey: ['organizations'],
-    queryFn: () => getAllOrganizations(),
-  });
+  const { organizations, isOrganizationsLoading, isOrganizationsError } = useGetAllOrganizations();
 
-  if (organizationsLoading) {
+  if (isOrganizationsLoading) {
     return <div>Loading...</div>;
   }
 
-  if (organizationsError) {
+  if (isOrganizationsError) {
     return <div>Error fetching data</div>;
   }
+  
   return (
     <div>
       <h2 className="flex justify-center text-xl">Organizations</h2>

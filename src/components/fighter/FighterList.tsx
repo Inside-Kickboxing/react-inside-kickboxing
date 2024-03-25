@@ -1,24 +1,15 @@
-import { getAllFighters } from '../../api/supabaseDb';
-import { useQuery } from '@tanstack/react-query';
+import useGetAllFighters from '@/hooks/useGetAllFighters';
 import { useNavigate } from 'react-router-dom';
 
 const FighterList = () => {
   const navigate = useNavigate();
-  const {
-    data: fighters,
-    isLoading: fightersLoading,
-    isError: fightersError,
-  } = useQuery({
-    queryKey: ['fighters'],
-    queryFn: () => getAllFighters(),
-    staleTime: 1000 * 60 * 5, // 1 minute
-  });
+  const { fighters, isFightersLoading, isFightersError } = useGetAllFighters();
 
-  if (fightersLoading) {
+  if (isFightersLoading) {
     return <div>Loading...</div>;
   }
 
-  if (fightersError) {
+  if (isFightersError) {
     return <div>Error fetching data</div>;
   }
   return (
