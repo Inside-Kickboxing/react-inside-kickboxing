@@ -1,27 +1,18 @@
-import { useQuery } from '@tanstack/react-query';
-import { getAllEvents } from '../../api/supabaseDb';
 import { formatDateTime } from '../../utils/dateFormatter'; // Import the formatDateTime function
 import { useNavigate } from 'react-router-dom';
+import useGetAllEvents from '@/hooks/useGetAllEvents';
 
 const EventList = () => {
   const navigate = useNavigate();
-  const {
-    data: events,
-    isLoading: eventsLoading,
-    isError: eventsError,
-  } = useQuery({
-    queryKey: ['events'],
-    queryFn: () => getAllEvents(),
-    staleTime: 1000 * 60 * 5, // 5 minutes
-  });
+  const { events, isEventsLoading, isEventsError } = useGetAllEvents();
 
   // Check if either events or organization data is still loading
-  if (eventsLoading) {
+  if (isEventsLoading) {
     return <div>Loading...</div>;
   }
 
   // Check if there was an error fetching events or organizations
-  if (eventsError) {
+  if (isEventsError) {
     return <div>Error fetching data</div>;
   }
 
