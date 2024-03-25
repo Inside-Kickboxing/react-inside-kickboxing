@@ -10,9 +10,10 @@ const useGetAllFighters = (shouldFetch?: boolean) => {
     const { data, isLoading, isError } = useQuery({
         queryKey: ['fighters'],
         queryFn: () => getAllFighters(),
-        staleTime: shouldFetch ? 0 : Infinity,
-        enabled: shouldFetch !== undefined ? shouldFetch: undefined, // Setter enabled: true / false KUN dersom vi sender inn shouldFetch
-    })
+        staleTime: shouldFetch === false ? Infinity : 0,
+        enabled: shouldFetch !== false,
+    });
+    
     return { fighters: data, isFightersLoading: isLoading, isFightersError: isError };
 }
 
