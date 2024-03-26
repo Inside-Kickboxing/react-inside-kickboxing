@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabase';
-import { Event, Fight, Fighter, /*FightHistory, */ Organization, User } from '../interfaces/';
+import { Event, Fight, Fighter, /*FightHistory, */ Organization, User, UserList } from '../interfaces/';
 import { handleError } from '@/utils/errorHandler';
 
 // Wrapper function for Supabase queries with error handling
@@ -22,7 +22,7 @@ export async function getAllEvents(): Promise<Event[] | null> {
 }
 
 export async function getEventById(eventId: number): Promise<Event> {
-  const query = supabase.from('Events').select('*').eq('event_id', eventId);
+  const query = supabase.from('Events').select('*').eq('id', eventId);
   return querySupabase(query).then((result) => (result ? result[0] : null));
 }
 
@@ -43,7 +43,7 @@ export async function getAllFighters(): Promise<Fighter[] | null> {
 }
 
 export async function getFighterById(fighterId: number): Promise<Fighter | null> {
-  const query = supabase.from('Fighters').select('*').eq('fighter_id', fighterId);
+  const query = supabase.from('Fighters').select('*').eq('id', fighterId);
   return querySupabase(query).then((result) => (result ? result[0] : null));
 }
 
@@ -59,18 +59,23 @@ export async function getAllOrganizations(): Promise<Organization[] | null> {
 }
 
 export async function getOrganizationById(organizationId: number): Promise<Organization | null> {
-  const query = supabase.from('Organizations').select('*').eq('organization_id', organizationId);
+  const query = supabase.from('Organizations').select('*').eq('id', organizationId);
   return querySupabase(query).then((result) => (result ? result[0] : null));
 }
 
 // Users
 
 export async function getUserById(userId: number): Promise<User> {
-  const query = supabase.from('Users').select('*').eq('user_id', userId);
+  const query = supabase.from('Users').select('*').eq('id', userId);
   return querySupabase(query).then((result) => (result ? result[0] : null));
 }
 
 export async function getUserByAuthId(authId: string): Promise<User> {
   const query = supabase.from('Users').select('*').eq('auth_id', authId);
   return querySupabase(query).then((result) => (result ? result[0] : null));
+}
+
+export async function getUserListsByUserId(userId: number): Promise<UserList[]> {
+  const query = supabase.from('User Lists').select('*').eq('user_id', userId);
+  return querySupabase(query) || [];
 }
